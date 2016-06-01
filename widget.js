@@ -161,15 +161,13 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             this.saveOptionsLocalStorage();
 
         },
-        
+
         setUnitTags: function() {
-            if($($('#' + this.id + ' select#waste-board-units')).val() == "mm")
-            {
-            $('#' + this.id + ' .unit').text("mm");
+            if ($($('#' + this.id + ' select#waste-board-units')).val() == "mm") {
+                $('#' + this.id + ' .unit').text("mm");
             }
-            else
-            {
-            $('#' + this.id + ' .unit').text("inch");
+            else {
+                $('#' + this.id + ' .unit').text("inch");
             }
         },
 
@@ -210,24 +208,27 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             // as opposed to a full callback method in the Hello Word 2
             // example further below. Notice we have to use "that" so 
             // that the this is set correctly inside the anonymous method
-            $('#' + this.id + ' .btn-sayhello').click(function() {
-                console.log("saying hello");
-                // Make sure popover is immediately hidden
-                $('#' + that.id + ' .btn-sayhello').popover("hide");
-                // Show a flash msg
-                chilipeppr.publish(
-                    "/com-chilipeppr-elem-flashmsg/flashmsg",
-                    "Hello Title",
-                    "Hello World from widget " + that.id,
-                    1000
-                );
-            });
+           
+           // $('#' + this.id + ' .btn-sayhello').click(function() {
+           //     console.log("saying hello");
+           //     // Make sure popover is immediately hidden
+           //     $('#' + that.id + ' .btn-sayhello').popover("hide");
+           //     // Show a flash msg
+           //     chilipeppr.publish(
+           //         "/com-chilipeppr-elem-flashmsg/flashmsg",
+           //         "Hello Title",
+           //         "Hello World from widget " + that.id,
+            //        1000
+            //    );
+           // });
+            $('#' + this.id + ' .btn-sendGcodetoWorkspace').click(this.sendGcodeToWorkspace.bind(this));
+
 
             // Init Hello World 2 button on Tab 1. Notice the use
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
-            $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
-
+           // $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
+            $('#' + this.id + ' .btn-generate-waste-prep-gcode').click(this.generateGcodeWasteboardPrep.bind(this));
         },
         fieldSetup: function() {
             var that = this;
@@ -321,7 +322,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                 $('select[name="' + this.name + '"]').val(this.value);
                 console.log(this);
             });
-            
+
             this.setUnitTags();
 
             this.options = options;
@@ -344,8 +345,11 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
         saveOptionsLocalStorage: function() {
             // You can add your own values to this.options to store them
             // along with some of the normal stuff like showBody
+            // set options to current wasteboard form:
+
+            this.options.wasteBoardOptions = $("form#waste-prep").serializeArray();
+
             var options = this.options;
-            options.wasteBoardOptions = $("form#waste-prep").serializeArray();
             var optionsStr = JSON.stringify(options);
             console.log("saving options:", options, "json.stringify:", optionsStr);
             // store settings to localStorage
@@ -425,6 +429,117 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                     pubsubviewer.attachTo($(topCssSelector + ' .panel-heading .dropdown-menu'), that);
                 });
             });
+
+        },
+        boardPrepGcode: null,
+        sendGcodeToWorkspace: function() {
+            console.log("sendGcodeToWorkspace");
+            var gcodetxt = boardPrepGcode;
+            var info = {
+                name: "Board Level Prep  " + gcodetxt.substring(0, 20),
+                lastModified: new Date()
+            };
+            console.log("info:", info);
+            // send event off as if the file was drag/dropped
+            chilipeppr.publish("/com-chilipeppr-elem-dragdrop/ondropped", boardPrepGcode, info);
+        },
+        generateGcodeWasteboardPrep: function() {
+
+            var wasteBoardSettings = this.options.wasteBoardOptions;
+
+            var unitID = $.grep(wasteBoardSettings, function(e) {
+                return e.name == 'waste-board-units';
+            })[0].value
+            var endMillDiameter = parseFloat($.grep(wasteBoardSettings, function(e) {
+                return e.name == 'waste-board-tool-diameter';
+            })[0].value);
+            var x = parseFloat($.grep(wasteBoardSettings, function(e) {
+                return e.name == 'waste-board-width-x';
+            })[0].value);
+            var y = parseFloat($.grep(wasteBoardSettings, function(e) {
+                return e.name == 'waste-board-width-y';
+            })[0].value);
+            var passDepth = parseFloat($.grep(wasteBoardSettings, function(e) {
+                return e.name == 'waste-board-cut-depth';
+            })[0].value) * -1;
+            var passDepthMax = parseFloat($.grep(wasteBoardSettings, function(e) {
+                return e.name == 'waste-board-max-cut-depth-pass';
+            })[0].value);
+            var feedRate = parseFloat($.grep(wasteBoardSettings, function(e) {
+                return e.name == 'waste-board-feed-rate';
+            })[0].value);
+            var stepOver = parseFloat($.grep(wasteBoardSettings, function(e) {
+                return e.name == 'waste-board-step-over';
+            })[0].value);
+
+            // Convert inches to mm before generate GCode
+            if (unitID == "mm") {
+                endMillDiameter = ConvertInchesToMM(endMillDiameter).toFixed(3);
+                x = ConvertInchesToMM(x).toFixed(3);
+                y = ConvertInchesToMM(y).toFixed(3);
+                passDepth = ConvertInchesToMM(passDepth);
+                feedRate = ConvertInchesToMM(feedRate).toFixed(0);
+            }
+
+            stepOver = endMillDiameter * stepOver;
+            var widthDistance = x - endMillDiameter;
+            var heightDistance = y - stepOver;
+            var feedRateStr = feedRate.toString().replace(",", ".");
+            var widthDistanceStr = widthDistance.toString().replace(",", ".");
+
+            // Generate GCode
+            var goingRight = true;
+            var gCode = "";
+            gCode += "(Set up Coordinate System) \n";
+            gCode += "G90 G94 \n";
+            gCode += "G17 \n";
+            gCode += "G21 ; Set units to mm\n";
+            gCode += "G28 G91 Z0 \n";
+            gCode += "G90 \n";
+            gCode += "(Set up tool change pause)\n";
+            gCode += "T1 M6; Tool change to Tool 1\n";
+            gCode += "(Start Motor and begin cutting)\n";
+            gCode += "S9000 M3; Motor on at 9000 RPM\n";
+            gCode += "G21 ; Set units to mm\n";
+            gCode += "G90 ; Absolute positioning\n";
+
+            // Move Z Axis
+            gCode += "G1 Z" + passDepth.toFixed(3).replace(",", ".") + " F" + feedRateStr + "\n";
+            gCode += "G1 X0 Y0 F" + feedRateStr + "\n";
+
+            var lastY = 0;
+            for (d = 0; d < heightDistance; d += stepOver) {
+                gCode += "G1 Y" + d.toFixed(3).replace(",", ".") + " F" + feedRateStr + "\n";
+                lastY = d.toFixed(3);
+
+                if (goingRight) {
+                    gCode += "G1 X" + widthDistanceStr + " F" + feedRateStr + "\n";
+                }
+                else {
+                    gCode += "G1 X0" + " F" + feedRateStr + "\n";
+                }
+
+                goingRight = !goingRight;
+            }
+
+            if (lastY < heightDistance) {
+                gCode += "G1 Y" + heightDistance.toFixed(3).replace(",", ".") + " F" + feedRateStr + "\n";
+                if (goingRight) {
+                    gCode += "G1 X" + widthDistanceStr + " F" + feedRateStr + "\n";
+                }
+                else {
+                    gCode += "G1 X0" + " F" + feedRateStr + "\n";
+                }
+            }
+
+            gCode += "(Turn Spindle Off) \n";
+            gCode += "M5; Spindle Off \n";
+            gCode += "(complete goto Work Zero) \n";
+            gCode += "G0 Z10 F60 \n";
+            gCode += "G0 X0 Y0 F300 \n";
+
+            this.boardPrepGcode = gCode;
+            //return gCode;
 
         },
 
