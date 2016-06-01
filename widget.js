@@ -82,10 +82,10 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
         id: "com-chilipeppr-widget-cncutilities", // Make the id the same as the cpdefine id
         name: "Widget / Template", // The descriptive name of your widget.
         desc: "This example widget gives you a framework for creating your own widget. Please change this description once you fork this template and create your own widget. Make sure to run runme.js every time you are done editing your code so you can regenerate your README.md file, regenerate your auto-generated-widget.html, and automatically push your changes to Github.", // A description of what your widget does
-        url: "(auto fill by runme.js)",       // The final URL of the working widget as a single HTML file with CSS and Javascript inlined. You can let runme.js auto fill this if you are using Cloud9.
+        url: "(auto fill by runme.js)", // The final URL of the working widget as a single HTML file with CSS and Javascript inlined. You can let runme.js auto fill this if you are using Cloud9.
         fiddleurl: "(auto fill by runme.js)", // The edit URL. This can be auto-filled by runme.js in Cloud9 if you'd like, or just define it on your own to help people know where they can edit/fork your widget
         githuburl: "(auto fill by runme.js)", // The backing github repo
-        testurl: "(auto fill by runme.js)",   // The standalone working widget so can view it working by itself
+        testurl: "(auto fill by runme.js)", // The standalone working widget so can view it working by itself
         /**
          * Define pubsub signals below. These are basically ChiliPeppr's event system.
          * ChiliPeppr uses amplify.js's pubsub system so please refer to docs at
@@ -137,16 +137,20 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             this.btnSetup();
             this.forkSetup();
             this.fieldSetup();
-            
+
             console.log("I am done being initted.");
         },
         activate: function() {
             console.log("activate");
+            this.setupUiFromLocalStorage();
+
         },
         unactivate: function() {
             console.log("unactivate");
+            this.saveOptionsLocalStorage();
+
         },
-        
+
         /**
          * Call this method from init to setup all the buttons when this widget
          * is first loaded. This basically attaches click events to your 
@@ -204,11 +208,18 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
 
         },
         fieldSetup: function() {
-            
+
             $('#' + this.id + ' select#waste-board-units').change(function() {
                 // alert("test");
             });
-            
+
+            $('#' + this.id + ' input').change(function() {
+                saveOptionsLocalStorage();
+
+                // alert("test");
+            });
+
+
         },
         /**
          * onHelloBtnClick is an example of a button click event callback
