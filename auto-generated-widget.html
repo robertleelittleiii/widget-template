@@ -281,7 +281,8 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                     showBody: true,
                     tabShowing: 1,
                     customParam1: null,
-                    customParam2: 1.0
+                    customParam2: 1.0,
+                    wasteBoardOptions: JSON.stringify($("form#waste-prep").serializeArray())
                 };
             }
 
@@ -306,7 +307,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             // You can add your own values to this.options to store them
             // along with some of the normal stuff like showBody
             var options = this.options;
-
+            options.wasteBoardOptions = JSON.stringify($("form#waste-prep").serializeArray());
             var optionsStr = JSON.stringify(options);
             console.log("saving options:", options, "json.stringify:", optionsStr);
             // store settings to localStorage
@@ -438,7 +439,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
 
                         <div class="form-group">
                             <label for="sel1">Units:</label>
-                            <select class="form-control" id="waste-board-units" name="waste-board-units[]">
+                            <select class="form-control" id="waste-board-units" name="waste-board-units">
                                 <option default value="mm">mm</option>
                                 <option value="inches">inches</option>
                             </select>
@@ -455,13 +456,13 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">X</div>
-                                <input type="number" class="form-control waste-prep al-coord width-x" value="0" name="waste-board-width-x[]" />
+                                <input type="number" class="form-control waste-prep al-coord width-x" value="0" name="waste-board-width-x" />
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">Y</div>
-                                <input type="number" class="form-control waste-prep al-coord width-y" value="0" name="waste-board-width-y[]"/>
+                                <input type="number" class="form-control waste-prep al-coord width-y" value="0" name="waste-board-width-y"/>
                             </div>
 
                        </div>
@@ -474,7 +475,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                             Tool Diameter
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control waste-prep tool-diameter" style="width:100px;" value="3.175" step=".005" name="waste-board-tool-diameter[]"/>
+                            <input type="number" class="form-control waste-prep tool-diameter" style="width:100px;" value="3.175" step=".005" name="waste-board-tool-diameter"/>
                         </div>
                         <div class="form-group unit">
                             mm
@@ -491,7 +492,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                             Cut Depth
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control waste-prep cut-depth" style="width:100px;" value="0.5" step=".05" name="waste-board-cut-depth[]" />
+                            <input type="number" class="form-control waste-prep cut-depth" style="width:100px;" value="0.5" step=".05" name="waste-board-cut-depth" />
                         </div>
                         <div class="form-group unit">
                             mm
@@ -508,7 +509,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                             Max Cut Depth per pass
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control waste-prep max-cut-depth-pass" style="width:100px;" value="0.25" step=".05" name="waste-board-max-cut-depth-pass[]" />
+                            <input type="number" class="form-control waste-prep max-cut-depth-pass" style="width:100px;" value="0.25" step=".05" name="waste-board-max-cut-depth-pass" />
                         </div>
                         <div class="form-group unit">
                             mm
@@ -525,7 +526,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                             Feed Rate
                         </div>
                         <div class="form-group" title="this is a test">
-                            <input type="number" class="form-control waste-prep feed-rate" style="width:100px;" value="1200" name="waste-board-feed-rate[]" />
+                            <input type="number" class="form-control waste-prep feed-rate" style="width:100px;" value="1200" name="waste-board-feed-rate" />
                         </div>
                         <div class="form-group unit">
                             mm
@@ -543,7 +544,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
 
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control waste-prep step-over" style="width:100px;" value="0.4" step="0.05" min="0.1" max="1" name="waste-board-step-over[]" />
+                            <input type="number" class="form-control waste-prep step-over" style="width:100px;" value="0.4" step="0.05" min="0.1" max="1" name="waste-board-step-over" />
                         </div>
                         <div class="form-group unit">
                             mm
