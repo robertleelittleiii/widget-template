@@ -307,6 +307,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
 
             $(options.wasteBoardOptions).each(function() {
                 $('input[name="' + this.name + '"]').val(this.value);
+                $('select[name="' + this.name + '"]').val(this.value);
                 console.log(this);
             });
 
