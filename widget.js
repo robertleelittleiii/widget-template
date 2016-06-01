@@ -198,7 +198,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                     "Hello Title",
                     "Hello World from widget " + that.id,
                     1000
-                );
+                );      
             });
 
             // Init Hello World 2 button on Tab 1. Notice the use
