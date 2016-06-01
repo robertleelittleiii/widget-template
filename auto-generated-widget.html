@@ -468,14 +468,14 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
         boardPrepGcode: null,
         sendGcodeToWorkspace: function() {
             console.log("sendGcodeToWorkspace");
-            var gcodetxt = boardPrepGcode;
+            var gcodetxt = this.boardPrepGcode;
             var info = {
                 name: "Board Level Prep  " + gcodetxt.substring(0, 20),
                 lastModified: new Date()
             };
             console.log("info:", info);
             // send event off as if the file was drag/dropped
-            chilipeppr.publish("/com-chilipeppr-elem-dragdrop/ondropped", boardPrepGcode, info);
+            chilipeppr.publish("/com-chilipeppr-elem-dragdrop/ondropped", this.boardPrepGcode, info);
         },
         generateGcodeWasteboardPrep: function() {
 
