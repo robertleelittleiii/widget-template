@@ -210,13 +210,13 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
         fieldSetup: function() {
 
             $('#' + this.id + ' select#waste-board-units').change(function() {
-                // alert("test");
+                console.log("test");
             });
 
             $('#' + this.id + ' input').change(function() {
                 this.saveOptionsLocalStorage();
 
-                // alert("test");
+                console.log("test");
             });
 
 
