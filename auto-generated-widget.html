@@ -230,7 +230,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
         fieldSetup: function() {
             
             $('#' + this.id + ' select#waste-board-units').change(function() {
-                alert("test");
+                // alert("test");
             });
             
         },
@@ -430,7 +430,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                 <!-- Tab 1 -->
                 <div class="tab-pane active" id="com-chilipeppr-widget-cncutilities-tab1">
                     <p>Enter in parameters for your waste board.</p>
-                    <form class="form-inline" role="form" style="margin-right:10px;">
+                    <form id="waste-prep" class="form-inline" role="form" style="margin-right:10px;">
 
                         <div class="form-group">
                             <label for="sel1">Units:</label>
@@ -442,9 +442,9 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
 
 
 
-                    </form>
+                    <!--</form>
 
-                    <form class="form-inline" role="form">
+                    <form class="form-inline" role="form"> -->
                         <div class="xform-group title">
                             Board Size
                         </div>
@@ -460,11 +460,9 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                                 <input type="number" class="form-control waste-prep al-coord width-y" value="0" />
                             </div>
                         </div>
-                    </form>
+                    <!--</form>
 
-
-
-                    <form class="form-inline" role="form" style="margin-right:10px;">
+                    <form class="form-inline" role="form"> -->
                         <div class="form-group title">
                             Tool Diameter
                         </div>
@@ -477,9 +475,9 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                         <div class="form-group calc-steps hidden">
                             -
                         </div>
-                    </form>
+                    <!--</form>
 
-                    <form class="form-inline" role="form" style="margin-right:10px;">
+                    <form class="form-inline" role="form"> style="margin-right:10px;"> -->
                         <div class="form-group title">
                             Cut Depth
                         </div>
@@ -492,9 +490,9 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                         <div class="form-group calc-steps hidden">
                             -
                         </div>
-                    </form>
+                      <!--</form>
 
-                    <form class="form-inline" role="form" style="margin-right:10px;">
+                    <form class="form-inline" role="form"> style="margin-right:10px;"> -->
                         <div class="form-group title">
                             Max Cut Depth per pass
                         </div>
@@ -507,10 +505,10 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                         <div class="form-group calc-steps hidden">
                             -
                         </div>
-                    </form>
+                   <!--</form>
 
-                    <form class="form-inline" role="form" style="margin-right:10px;">
-                        <div class="form-group title">
+                    <form class="form-inline" role="form"> style="margin-right:10px;"> -->
+                <div class="form-group title">
                             Feed Rate
                         </div>
                         <div class="form-group" title="this is a test">
@@ -522,10 +520,10 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                         <div class="form-group calc-steps hidden">
                             -
                         </div>
-                    </form>
+                   <!--</form>
 
-                    <form class="form-inline" role="form" style="margin-right:10px;">
-                        <div class="form-group title">
+                    <form class="form-inline" role="form"> style="margin-right:10px;"> -->
+                <div class="form-group title">
                             Step Over (0.1 - 1.0)
 
                         </div>
