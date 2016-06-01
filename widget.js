@@ -221,12 +221,12 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
         fieldSetup: function() {
             var that = this;
 
-            $('#' + this.id + ' select#waste-board-units').change(function() {
+            $('#' + this.id + ' select#waste-board-units').off('change').blur().on('change',function() {
                 // alert($(this).val());
                 if ($(this).val() == "mm") {
                     $('#' + that.id + ' .unit').text("mm");
                     $('#' + that.id + ' input').each(function() {  
-                        $(this).val(ConvertMMToInches(parseFloat($(this).val().replace(",","."))));
+                        $(this).val(ConvertInchesToMM(parseFloat($(this).val().replace(",","."))));
                     });
 
                 }       
@@ -234,7 +234,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                     $('#' + that.id + ' .unit').text("inch");
 
                     $('#' + that.id + ' input').each(function() {
-                        $(this).val(ConvertInchesToMM(parseFloat($(this).val().replace(",","."))));
+                        $(this).val(ConvertMMToInches(parseFloat($(this).val().replace(",","."))));
                     });
     
                 }
