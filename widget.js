@@ -213,11 +213,11 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             $('#' + this.id + ' select#waste-board-units').change(function() {
                 alert($(this).val());
                 if ($(this).val() == "mm") {
-                    $('#' + this.id + ' .unit').text("mm");
+                    $('#' + that.id + ' .unit').text("mm");
                 }
                 else
                 {
-                    $('#' + this.id + ' .unit').text("inch");
+                    $('#' + that.id + ' .unit').text("inch");
                 }
                 that.saveOptionsLocalStorage();
                 console.log("test");
