@@ -195,6 +195,18 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             this.saveOptionsLocalStorage();
 
         },
+        
+        setUnitTags: function() {
+           var unitsSelect = $('#' + this.id + ' select#waste-board-units');
+            if($(unitsSelect).val() == "mm")
+            {
+             $(unitsSelect).text("mm");
+            }
+            else
+            {
+             $(unitsSelect).text("mm");
+            }
+        },
 
         /**
          * Call this method from init to setup all the buttons when this widget
@@ -344,6 +356,8 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                 $('select[name="' + this.name + '"]').val(this.value);
                 console.log(this);
             });
+            
+            this.setUnitTags();
 
             this.options = options;
             console.log("options:", options);
