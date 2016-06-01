@@ -214,7 +214,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             });
 
             $('#' + this.id + ' input').change(function() {
-                saveOptionsLocalStorage();
+                this.saveOptionsLocalStorage();
 
                 // alert("test");
             });
