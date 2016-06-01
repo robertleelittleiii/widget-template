@@ -3,6 +3,17 @@
 
 // ChiliPeppr Widget/Element Javascript
 
+/* Some utilites */
+
+function ConvertMMToInches(mm) {
+    return mm * 0.0393701;
+};
+
+function ConvertInchesToMM(inches) {
+    return inches * 25.4;
+};
+
+
 requirejs.config({
     /*
     Dependencies can be defined here. ChiliPeppr uses require.js so
@@ -158,7 +169,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
          * the entire DOM of the widget.
          */
         btnSetup: function() {
- 
+
             // Chevron hide/show body
             var that = this;
             $('#' + this.id + ' .hidebody').click(function(evt) {
@@ -198,7 +209,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                     "Hello Title",
                     "Hello World from widget " + that.id,
                     1000
-                );      
+                );
             });
 
             // Init Hello World 2 button on Tab 1. Notice the use
@@ -211,13 +222,21 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             var that = this;
 
             $('#' + this.id + ' select#waste-board-units').change(function() {
-                alert($(this).val());
+                // alert($(this).val());
                 if ($(this).val() == "mm") {
                     $('#' + that.id + ' .unit').text("mm");
+                    $('#' + that.id + ' input').each(function() {
+                        $(this).val(ConvertInchesToMM(this.val()));
+                    });
+
                 }
-                else
-                {
+                else {
                     $('#' + that.id + ' .unit').text("inch");
+
+                    $('#' + that.id + ' input').each(function() {
+                        $(this).val(ConvertMMToInches(this.val()));
+                    });
+
                 }
                 that.saveOptionsLocalStorage();
                 console.log("test");
