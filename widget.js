@@ -229,7 +229,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                         $(this).val(ConvertInchesToMM($(this).val()));
                     });
 
-                }
+                }    
                 else {
                     $('#' + that.id + ' .unit').text("inch");
 
