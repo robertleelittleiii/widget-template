@@ -255,7 +255,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                     tabShowing: 1,
                     customParam1: null,
                     customParam2: 1.0,
-                    wasteBoardOptions: JSON.stringify($("form#waste-prep").serializeArray())
+                    wasteBoardOptions: $("form#waste-prep").serializeArray()
                 };
             }
 
@@ -280,7 +280,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             // You can add your own values to this.options to store them
             // along with some of the normal stuff like showBody
             var options = this.options;
-            options.wasteBoardOptions = JSON.stringify($("form#waste-prep").serializeArray());
+            options.wasteBoardOptions = $("form#waste-prep").serializeArray();
             var optionsStr = JSON.stringify(options);
             console.log("saving options:", options, "json.stringify:", optionsStr);
             // store settings to localStorage
