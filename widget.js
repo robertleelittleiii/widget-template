@@ -216,7 +216,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
             $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
-
+    
         },
         fieldSetup: function() {
             var that = this;
@@ -229,14 +229,14 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                         $(this).val(ConvertInchesToMM($(this).val()));
                     });
 
-                }    
+                }       
                 else {
                     $('#' + that.id + ' .unit').text("inch");
 
                     $('#' + that.id + ' input').each(function() {
                         $(this).val(ConvertMMToInches($(this).val()));
                     });
-
+    
                 }
                 that.saveOptionsLocalStorage();
                 console.log("test");
