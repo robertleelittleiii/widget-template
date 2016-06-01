@@ -158,7 +158,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
          * the entire DOM of the widget.
          */
         btnSetup: function() {
-
+ 
             // Chevron hide/show body
             var that = this;
             $('#' + this.id + ' .hidebody').click(function(evt) {
