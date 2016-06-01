@@ -226,7 +226,12 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                 if ($(this).val() == "mm") {
                     $('#' + that.id + ' .unit').text("mm");
                     $('#' + that.id + ' input').each(function() {  
-                        $(this).val(ConvertInchesToMM(parseFloat($(this).val().replace(",","."))));
+                        var newValue = ConvertInchesToMM(parseFloat($(this).val().replace(",",".")));
+                        if ($(this).attr("name") == "waste-board-feed-rate")
+                        $(this).val(newValue.toFixed(0));
+                        else
+                         $(this).val(newValue.toFixed(3));
+
                     });
 
                 }       
@@ -234,7 +239,12 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                     $('#' + that.id + ' .unit').text("inch");
 
                     $('#' + that.id + ' input').each(function() {
-                        $(this).val(ConvertMMToInches(parseFloat($(this).val().replace(",","."))));
+                           var newValue = ConvertMMToInches(parseFloat($(this).val().replace(",",".")));
+                        if ($(this).attr("name") == "waste-board-feed-rate")
+                        $(this).val(newValue.toFixed(0));
+                        else
+                         $(this).val(newValue.toFixed(3));
+
                     });
     
                 }
