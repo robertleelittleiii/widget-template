@@ -429,16 +429,15 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                     <p>Enter in parameters for your waste board.</p>
                     <form class="form-inline" role="form" style="margin-right:10px;">
 
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="units" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Units
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="#">mm</a></li>
-                                <li><a href="#">inches</a></li>
-                            </ul>
-                        </div>
+<div class="form-group">
+  <label for="sel1">Units:</label>
+  <select class="form-control" id="waste-board-units">
+    <option default value="mm">mm</option>
+    <option value="inches">inches</option>
+  </select>
+</div>
+
+                        
 
                     </form>
 
