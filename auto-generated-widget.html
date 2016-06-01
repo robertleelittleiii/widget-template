@@ -507,7 +507,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             })[0].value);
 
             // Convert inches to mm before generate GCode
-            if (unitID == "mm") {
+            if (unitID == "inch") {
                 endMillDiameter = ConvertInchesToMM(endMillDiameter).toFixed(3);
                 x = ConvertInchesToMM(x).toFixed(3);
                 y = ConvertInchesToMM(y).toFixed(3);
