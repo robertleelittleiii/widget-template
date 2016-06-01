@@ -4,7 +4,9 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-    <title><!--(auto-fill by runme.js--></title>
+    <title>
+        <!--(auto-fill by runme.js-->
+    </title>
 
     <!-- ChiliPeppr is based on bootstrap CSS. -->
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -65,12 +67,125 @@
             <!-- Tab panes -->
 
             <div class="tab-content">
-    
                 <!-- Tab 1 -->
                 <div class="tab-pane active" id="com-chilipeppr-widget-cncutilities-tab1">
-                    <p>This is the content of tab 1.</p>
+                    <p>Enter in parameters for your waste board.</p>
+                    <form class="form-inline" role="form" style="margin-right:10px;">
+
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="units" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Units
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="#">mm</a></li>
+                                <li><a href="#">inches</a></li>
+                            </ul>
+                        </div>
+
+                    </form>
+
+                    <form class="form-inline" role="form">
+                        <div class="xform-group title">
+                            Board Size
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">X</div>
+                                <input type="number" class="form-control autolevel-elem al-coord start-x" value="0" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">Y</div>
+                                <input type="number" class="form-control autolevel-elem al-coord start-y" value="0" />
+                            </div>
+                        </div>
+                    </form>
+
+
+
+                    <form class="form-inline" role="form" style="margin-right:10px;">
+                        <div class="form-group title">
+                            Tool Diameter
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control autolevel-elem grid-steps" style="width:100px;" value="3.175" step=".005" />
+                        </div>
+                        <div class="form-group unit">
+                            mm
+                        </div>
+                        <div class="form-group calc-steps hidden">
+                            -
+                        </div>
+                    </form>
+
+                    <form class="form-inline" role="form" style="margin-right:10px;">
+                        <div class="form-group title">
+                            Cut Depth
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control autolevel-elem grid-steps" style="width:100px;" value="0.5" step=".05" />
+                        </div>
+                        <div class="form-group unit">
+                            mm
+                        </div>
+                        <div class="form-group calc-steps hidden">
+                            -
+                        </div>
+                    </form>
+
+                    <form class="form-inline" role="form" style="margin-right:10px;">
+                        <div class="form-group title">
+                            Max Cut Depth per pass
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control autolevel-elem grid-steps" style="width:100px;" value="0.25" step=".05" />
+                        </div>
+                        <div class="form-group unit">
+                            mm
+                        </div>
+                        <div class="form-group calc-steps hidden">
+                            -
+                        </div>
+                    </form>
+
+                    <form class="form-inline" role="form" style="margin-right:10px;">
+                        <div class="form-group title">
+                            Feed Rate
+                        </div>
+                        <div class="form-group" title="this is a test">
+                            <input type="number" class="form-control autolevel-elem grid-steps" style="width:100px;" value="1200" />
+                        </div>
+                        <div class="form-group unit">
+                            mm
+                        </div>
+                        <div class="form-group calc-steps hidden">
+                            -
+                        </div>
+                    </form>
+
+                    <form class="form-inline" role="form" style="margin-right:10px;">
+                        <div class="form-group title">
+                            Step Over (0.1 - 1.0)
+                            
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control autolevel-elem grid-steps" style="width:100px;" value="0.4" step="0.05" min="0.1" max="1" />
+                        </div>
+                        <div class="form-group unit">
+                            mm
+                        </div>
+                        <div class="form-group calc-steps hidden">
+                            -
+                        </div>
+                    </form>
+
+
+
+
                     <div class="">
-                        <button type="button" class="btn btn-xs btn-default btn-helloworld2" style="margin: 4px 0;">Hello World 2</button>
+                        <button type="button" class="btn btn-xs btn-default btn-helloworld2" style="margin: 4px 0;">Generate G-Code</button>
                     </div>
                 </div>
 

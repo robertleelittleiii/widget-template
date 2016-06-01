@@ -195,6 +195,11 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
 
         },
+        fieldSetup: function() {
+            
+            
+            
+        },
         /**
          * onHelloBtnClick is an example of a button click event callback
          */
