@@ -240,10 +240,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
 
                     $('#' + that.id + ' input').each(function() {
                         var newValue = ConvertMMToInches(parseFloat($(this).val().replace(",", ".")));
-                        if ($(this).attr("name") == "waste-board-feed-rate")
-                            $(this).val(newValue.toFixed(0));
-                        else
-                            $(this).val(newValue.toFixed(3));
+                        $(this).val(newValue);
 
                     });
 
