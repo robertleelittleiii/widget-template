@@ -225,7 +225,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                 // alert($(this).val());
                 if ($(this).val() == "mm") {
                     $('#' + that.id + ' .unit').text("mm");
-                    $('#' + that.id + ' input').each(function() {
+                    $('#' + that.id + ' input').each(function() {  
                         $(this).val(ConvertInchesToMM($(this).val()).toFixed(3));
                     });
 
