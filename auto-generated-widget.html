@@ -167,7 +167,8 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             this.setupUiFromLocalStorage();
             this.btnSetup();
             this.forkSetup();
-
+            this.fieldSetup();
+            
             console.log("I am done being initted.");
         },
         /**
@@ -228,7 +229,9 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
         },
         fieldSetup: function() {
             
-            
+            $('#' + this.id + ' select#waste-board-units').change(function() {
+                alert("test");
+            });
             
         },
         /**
@@ -429,15 +432,15 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                     <p>Enter in parameters for your waste board.</p>
                     <form class="form-inline" role="form" style="margin-right:10px;">
 
-<div class="form-group">
-  <label for="sel1">Units:</label>
-  <select class="form-control" id="waste-board-units">
-    <option default value="mm">mm</option>
-    <option value="inches">inches</option>
-  </select>
-</div>
+                        <div class="form-group">
+                            <label for="sel1">Units:</label>
+                            <select class="form-control" id="waste-board-units">
+                                <option default value="mm">mm</option>
+                                <option value="inches">inches</option>
+                            </select>
+                        </div>
 
-                        
+
 
                     </form>
 
@@ -524,7 +527,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                     <form class="form-inline" role="form" style="margin-right:10px;">
                         <div class="form-group title">
                             Step Over (0.1 - 1.0)
-                            
+
                         </div>
                         <div class="form-group">
                             <input type="number" class="form-control waste-prep step-over" style="width:100px;" value="0.4" step="0.05" min="0.1" max="1" />
