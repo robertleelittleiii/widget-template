@@ -163,14 +163,13 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
         },
         
         setUnitTags: function() {
-           var unitsSelect = $('#' + this.id + ' select#waste-board-units');
-            if($(unitsSelect).val() == "mm")
+            if($($('#' + this.id + ' select#waste-board-units')).val() == "mm")
             {
-             $(unitsSelect).text("mm");
+            $('#' + this.id + ' .unit').text("mm");
             }
             else
             {
-             $(unitsSelect).text("mm");
+            $('#' + this.id + ' .unit').text("inch");
             }
         },
 
