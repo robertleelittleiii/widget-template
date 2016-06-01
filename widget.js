@@ -216,37 +216,37 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
             $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
-    
+
         },
         fieldSetup: function() {
             var that = this;
 
-            $('#' + this.id + ' select#waste-board-units').off('change').blur().on('change',function() {
+            $('#' + this.id + ' select#waste-board-units').off('change').blur().on('change', function() {
                 // alert($(this).val());
                 if ($(this).val() == "mm") {
                     $('#' + that.id + ' .unit').text("mm");
-                    $('#' + that.id + ' input').each(function() {  
-                        var newValue = ConvertInchesToMM(parseFloat($(this).val().replace(",",".")));
+                    $('#' + that.id + ' input').each(function() {
+                        var newValue = ConvertInchesToMM(parseFloat($(this).val().replace(",", ".")));
                         if ($(this).attr("name") == "waste-board-feed-rate")
-                        $(this).val(newValue.toFixed(0));
+                            $(this).val(newValue.toFixed(0));
                         else
-                         $(this).val(newValue.toFixed(3));
+                            $(this).val(newValue.toFixed(3));
 
                     });
 
-                }       
+                }
                 else {
                     $('#' + that.id + ' .unit').text("inch");
 
                     $('#' + that.id + ' input').each(function() {
-                           var newValue = ConvertMMToInches(parseFloat($(this).val().replace(",",".")));
+                        var newValue = ConvertMMToInches(parseFloat($(this).val().replace(",", ".")));
                         if ($(this).attr("name") == "waste-board-feed-rate")
-                        $(this).val(newValue.toFixed(0));
+                            $(this).val(newValue.toFixed(0));
                         else
-                         $(this).val(newValue.toFixed(3));
+                            $(this).val(newValue.toFixed(3));
 
                     });
-    
+
                 }
                 that.saveOptionsLocalStorage();
                 console.log("test");
