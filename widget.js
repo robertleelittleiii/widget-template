@@ -226,7 +226,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                 if ($(this).val() == "mm") {
                     $('#' + that.id + ' .unit').text("mm");
                     $('#' + that.id + ' input').each(function() {
-                        $(this).val(ConvertInchesToMM($(this).val()));
+                        $(this).val(ConvertInchesToMM($(this).val().toFixed(3)));
                     });
 
                 }       
@@ -234,7 +234,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                     $('#' + that.id + ' .unit').text("inch");
 
                     $('#' + that.id + ' input').each(function() {
-                        $(this).val(ConvertMMToInches($(this).val()));
+                        $(this).val(ConvertMMToInches($(this).val().toFixed(3)));
                     });
     
                 }
