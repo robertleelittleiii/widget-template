@@ -536,7 +536,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             while (1) {
                 gcode += y(limitY, feedRate); //all way up
                 i = i + majorMark;
-                if (i > limitX, feedRate) break;
+                if (i > limitX) break;
                 gcode += x(i, feedRate); //right one
                 gcode += y(0, feedRate); //all way down
                 i = i + majorMark;
@@ -1112,4 +1112,6 @@ function drawRect(x0, y0, w, h, zDepth, plungeRate, cutRate) {
     gcode += x(x0), cutRate;
     gcode += y(y0, cutRate);
     gcode += z(1, plungeRate);
+    
+    return gcode;
 }
