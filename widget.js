@@ -510,7 +510,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             gcode += cmd("S9000 M3", "Motor on at 9000 RPM");
 
             gcode += go(0, 0, feedRate); // home pos
-            gcode += z(zDepth,plungeRate); // marker down
+            gcode += z(passDepth,plungeRate); // marker down
 
             var i = 0;
             gcode +=msg("draw horz X lines");
@@ -528,7 +528,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
 
             gcode += z(1, plungeRate); //marker up..
             gcode += go(0, 0, feedRate); //go home
-            gcode += z(zDepth, plungeRate); //marker down
+            gcode += z(passDepth, plungeRate); //marker down
 
             var i = 0;
             gcode += msg("draw vertical Y lines");
