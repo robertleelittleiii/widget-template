@@ -615,7 +615,8 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             gcode += z(5, plungeRate)
             gcode += go(limitX / 2, limitY / 2, feedRate);
 
-            gCode=gcode;
+            this.gridGcode = gcode;
+
             //document.getElementById('text').innerHTML = gcode;
 
 
