@@ -1143,7 +1143,7 @@ function drawRect(x0, y0, w, h, zDepth, plungeRate, cutRate) {
     gcode += z(zDepth, plungeRate);
     gcode += x(x0 + w, cutRate);
     gcode += y(y0 + h, cutRate);
-    gcode += x(x0), cutRate;
+    gcode += x(x0, cutRate);
     gcode += y(y0, cutRate);
     gcode += z(1, plungeRate);
     
