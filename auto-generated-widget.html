@@ -549,13 +549,13 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             var i = 0;
             gcode +=msg("draw horz X lines");
             while (1) {
-                gcode += x(limitX,feedRate ); //all way right
+                gcode += x(x,feedRate ); //all way right
                 i = i + majorMark;
-                if (i > limitY) break;
+                if (i > y) break;
                 gcode += y(i, feedRate); //up to next line
                 gcode += x(0, feedRate); //all way left
                 i = i + majorMark;
-                if (i > limitY) break;
+                if (i > y) break;
                 gcode += y(i, feedRate); //up to next line
             }
 
@@ -567,13 +567,13 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             var i = 0;
             gcode += msg("draw vertical Y lines");
             while (1) {
-                gcode += y(limitY, feedRate); //all way up
+                gcode += y(y, feedRate); //all way up
                 i = i + majorMark;
-                if (i > limitX, feedRate) break;
+                if (i > x, feedRate) break;
                 gcode += x(i, feedRate); //right one
                 gcode += y(0, feedRate); //all way down
                 i = i + majorMark;
-                if (i > limitX) break;
+                if (i > x) break;
                 gcode += x(i, feedRate); //right one
             }
 
@@ -588,7 +588,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                 // }
 
                 console.log("draw number: " + textValue + "Length: " + (textValue + "").length + " ivalue:" + i);
-                if (i > (limitX - majorMark)) break;
+                if (i > (x - majorMark)) break;
             }
 
 
@@ -601,11 +601,11 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                 // }
 
                 // console.log("draw number: " + textValue + "Length: "+( textValue + "").length + " ivalue:" + i);
-                if (i > (limitY - majorMark)) break;
+                if (i > (y - majorMark)) break;
             }
 
             gcode += msg("draw rectangle around entire perimiter");
-            gcode += drawRect(0, 0, limitX, limitY);
+            gcode += drawRect(0, 0, x, y);
 
             gcode += msg("Turn Spindle Off");
             gcode += cmd("M5", "Spindle Off");
@@ -613,7 +613,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
 
             gcode += msg("complete goto center");
             gcode += z(5, plungeRate)
-            gcode += go(limitX / 2, limitY / 2, feedRate);
+            gcode += go(x / 2, y / 2, feedRate);
 
             gCode=gcode;
             //document.getElementById('text').innerHTML = gcode;
