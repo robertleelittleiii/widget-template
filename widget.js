@@ -490,8 +490,8 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                 return e.name == 'grid-feed-rate';
             })[0].value);
             
-            var about = "generate gcode to control cnc machine to<br>" +
-                "; draw 1in grid lines on table with marker<br>";
+            var about = "generate gcode to control cnc machine to\n" +
+                "; draw 1in grid lines on table with marker\n";
             
             var letterWidth = 4;
             var letterHeight = 5;
@@ -697,39 +697,39 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
 //RunGCode, true returns when movement complete.
 
 function go(x, y, cuteRate) {
-    return "G0 X" + x + " Y" + y + " F" + cuteRate + "<br>";
+    return "G0 X" + x + " Y" + y + " F" + cuteRate + "\n";
 }
 
 function arc(x, y, i, j, cutRate) {
-    return "G2 X" + x + " Y" + y + " I" + i + " J" + j + " F" + cutRate + "<br>";
+    return "G2 X" + x + " Y" + y + " I" + i + " J" + j + " F" + cutRate + "\n";
 }
 
 function ccarc(x, y, i, j, cutRate) {
-    return "G3 X" + x + " Y" + y + " I" + i + " J" + j + " F" + cutRate + "<br>";
+    return "G3 X" + x + " Y" + y + " I" + i + " J" + j + " F" + cutRate + "\n";
 }
 
 function x(pos, cutRate) {
-    return "G0 X" + pos + " F" + cutRate + "<br>";
+    return "G0 X" + pos + " F" + cutRate + "\n";
 }
 
 function y(pos, cutRate) {
-    return "G0 Y" + pos + " F" + cutRate + "<br>";
+    return "G0 Y" + pos + " F" + cutRate + "\n";
 }
 
 function z(pos, plungeRate) {
-    return "G0 Z" + pos + " F" + plungeRate + "<br>";
+    return "G0 Z" + pos + " F" + plungeRate + "\n";
 }
 
 function cmt(txt) {
-    return "<br>; " + txt + "<br>";
+    return "\n; " + txt + "\n";
 }
 
 function msg(txt) {
-    return "(" + txt + ") <br>";
+    return "(" + txt + ") \n";
 }
 
 function cmd(txt, comment) {
-    return txt + (typeof comment == "undefined" ? "" : "; " + comment) + "<br>";
+    return txt + (typeof comment == "undefined" ? "" : "; " + comment) + "\n";
 }
 
 function draw1(x0, y0, zDepth, plungeRate, cutRate) {
