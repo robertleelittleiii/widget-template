@@ -1105,7 +1105,7 @@ function drawNumber(number, x0, y0, align, hAlign, zDepth, plungeRate, cutRate, 
 function drawRect(x0, y0, w, h, zDepth, plungeRate, cutRate) {
     var gcode = "";
     gcode += z(1, plungeRate);
-    gcode += go(x0, y0, cutRate);
+    gcode += go(x0, y0, cutRate);   
     gcode += z(zDepth, plungeRate);
     gcode += x(x0 + w, cutRate);
     gcode += y(y0 + h, cutRate);
