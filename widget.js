@@ -776,7 +776,7 @@ function draw2(x0, y0, zDepth, plungeRate, cutRate) {
 
 function draw3(x0, y0, zDepth, plungeRate, cutRate) {
     var gcode = "";
-    gcode += msg("Draw 2");
+    gcode += msg("Draw 3");
     gcode += z(2, plungeRate);
     gcode += go(0 + x0, 5 + y0, cutRate);
     gcode += z(zDepth, plungeRate);
@@ -790,7 +790,7 @@ function draw3(x0, y0, zDepth, plungeRate, cutRate) {
     gcode += z(zDepth, plungeRate);
     gcode += arc(3 + x0, 2 + y0, 0, -1, cutRate);
     gcode += go(3 + x0, 1 + y0, cutRate);
-    gcode += arc(2 + x0, 0 + y0, -1, 0), cutRate;
+    gcode += arc(2 + x0, 0 + y0, -1, 0 ,cutRate) ;
     gcode += go(0 + x0, 0 + y0, cutRate);
     gcode += z(2, plungeRate);
 
@@ -883,7 +883,7 @@ function draw6(x0, y0, zDepth, plungeRate, cutRate) {
     gcode += go(2 + x0, 1 + y0, cutRate);
     gcode += arc(0 + x0, 1 + y0, -1, 0, cutRate);
     gcode += go(0 + x0, 2 + y0, cutRate);
-    gcode += arc(1 + x0, 5 + y0, 4, 0), cutRate;
+    gcode += arc(1 + x0, 5 + y0, 4, 0, cutRate);
     gcode += z(2, plungeRate);
 
     return gcode;
