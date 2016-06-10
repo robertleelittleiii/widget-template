@@ -504,16 +504,16 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
 
             var gridUnits = $.grep(gridSettings, function(e) {
                 return e.name == 'grid-units';
-            })[0].value
+            })[0].value;
             var limitX = parseFloat($.grep(gridSettings, function(e) {
                 return e.name == 'grid-width-x';
             })[0].value);
             var limitY = parseFloat($.grep(gridSettings, function(e) {
                 return e.name == 'grid-width-y';
             })[0].value);
-            var majorMark = $.grep(gridSettings, function(e) {
+            var majorMark = parseFloat($.grep(gridSettings, function(e) {
                 return e.name == 'grid-major-mark';
-            })[0].value
+            })[0].value);
             var passDepth = parseFloat($.grep(gridSettings, function(e) {
                 return e.name == 'grid-cut-depth';
             })[0].value) * -1;
@@ -523,6 +523,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             var feedRate = parseFloat($.grep(gridSettings, function(e) {
                 return e.name == 'grid-feed-rate';
             })[0].value);
+            
             var about = "generate gcode to control cnc machine to<br>" +
                 "; draw 1in grid lines on table with marker<br>";
             
@@ -1032,7 +1033,7 @@ function draw0(x0, y0, zDepth, plungeRate, cutRate) {
     var gcode = "";
     gcode += msg("Draw 0");
     gcode += z(2, plungeRate);
-    gcode += go(0 + x0, 4 + y0);
+    gcode += go(0 + x0, 4 + y0, cutRate);
     gcode += z(zDepth, plungeRate);
     gcode += arc(2 + x0, 4 + y0, 1, 0, cutRate);
     gcode += go(2 + x0, 1 + y0, cutRate);
