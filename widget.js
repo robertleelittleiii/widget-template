@@ -208,27 +208,29 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             // as opposed to a full callback method in the Hello Word 2
             // example further below. Notice we have to use "that" so 
             // that the this is set correctly inside the anonymous method
-           
-           // $('#' + this.id + ' .btn-sayhello').click(function() {
-           //     console.log("saying hello");
-           //     // Make sure popover is immediately hidden
-           //     $('#' + that.id + ' .btn-sayhello').popover("hide");
-           //     // Show a flash msg
-           //     chilipeppr.publish(
-           //         "/com-chilipeppr-elem-flashmsg/flashmsg",
-           //         "Hello Title",
-           //         "Hello World from widget " + that.id,
+
+            // $('#' + this.id + ' .btn-sayhello').click(function() {
+            //     console.log("saying hello");
+            //     // Make sure popover is immediately hidden
+            //     $('#' + that.id + ' .btn-sayhello').popover("hide");
+            //     // Show a flash msg
+            //     chilipeppr.publish(
+            //         "/com-chilipeppr-elem-flashmsg/flashmsg",
+            //         "Hello Title",
+            //         "Hello World from widget " + that.id,
             //        1000
             //    );
-           // });
+            // });
             $('#' + this.id + ' .btn-sendGcodetoWorkspace').click(this.sendGcodeToWorkspace.bind(this));
+            $('#' + this.id + ' .btn-sendGridGcodetoWorkspace').click(this.sendGridGcodeToWorkspace.bind(this));
 
 
             // Init Hello World 2 button on Tab 1. Notice the use
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
-           // $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
+            // $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
             $('#' + this.id + ' .btn-generate-waste-prep-gcode').click(this.generateGcodeWasteboardPrep.bind(this));
+            $('#' + this.id + ' .btn-generate-grid-gcode').click(this.generateGcodeGridPrep.bind(this));
         },
         fieldSetup: function() {
             var that = this;
@@ -313,11 +315,18 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                     tabShowing: 1,
                     customParam1: null,
                     customParam2: 1.0,
-                    wasteBoardOptions: $("form#waste-prep").serializeArray()
+                    wasteBoardOptions: $("form#waste-prep").serializeArray(),
+                    gridOptions: $("form#grid-prep").serializeArray()
                 };
             }
 
             $(options.wasteBoardOptions).each(function() {
+                $('input[name="' + this.name + '"]').val(this.value);
+                $('select[name="' + this.name + '"]').val(this.value);
+                console.log(this);
+            });
+
+            $(options.gridOptions).each(function() {
                 $('input[name="' + this.name + '"]').val(this.value);
                 $('select[name="' + this.name + '"]').val(this.value);
                 console.log(this);
@@ -348,6 +357,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             // set options to current wasteboard form:
 
             this.options.wasteBoardOptions = $("form#waste-prep").serializeArray();
+            this.options.gridOptions = $("form#grid-prep").serializeArray();
 
             var options = this.options;
             var optionsStr = JSON.stringify(options);
@@ -432,6 +442,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
 
         },
         boardPrepGcode: null,
+        gridGcode:null,
         sendGcodeToWorkspace: function() {
             console.log("sendGcodeToWorkspace");
             var gcodetxt = this.boardPrepGcode;
@@ -442,6 +453,139 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             console.log("info:", info);
             // send event off as if the file was drag/dropped
             chilipeppr.publish("/com-chilipeppr-elem-dragdrop/ondropped", this.boardPrepGcode, info);
+        },
+        sendGridGcodeToWorkspace: function() {
+            console.log("sendGridGcodeToWorkspace");
+            var gcodetxt = this.gridGcode;
+            var info = {
+                name: "Board Grid  " + gcodetxt.substring(0, 20),
+                lastModified: new Date()
+            };
+            console.log("info:", info);
+            // send event off as if the file was drag/dropped
+            chilipeppr.publish("/com-chilipeppr-elem-dragdrop/ondropped", this.gridGcode, info);
+        },
+        generateGcodeGridPrep: function() {
+            var gridSettings = this.options.gridOptions;
+
+            var gridUnits = $.grep(gridSettings, function(e) {
+                return e.name == 'grid-units';
+            })[0].value
+            var x = parseFloat($.grep(gridSettings, function(e) {
+                return e.name == 'grid-width-x';
+            })[0].value);
+            var y = parseFloat($.grep(gridSettings, function(e) {
+                return e.name == 'grid-width-y';
+            })[0].value);
+            var majorMark = $.grep(gridSettings, function(e) {
+                return e.name == 'grid-major-mark';
+            })[0].value
+            var passDepth = parseFloat($.grep(gridSettings, function(e) {
+                return e.name == 'grid-cut-depth';
+            })[0].value) * -1;
+            var plungeRate = parseFloat($.grep(gridSettings, function(e) {
+                return e.name == 'grid-plunge-rate';
+            })[0].value);
+            var feedRate = parseFloat($.grep(gridSettings, function(e) {
+                return e.name == 'grid-feed-rate';
+            })[0].value);
+            var about = "generate gcode to control cnc machine to<br>" +
+                "; draw 1in grid lines on table with marker<br>";
+            
+            var letterWidth = 4;
+            var letterHeight = 5;
+            var gcode = ""
+
+            gcode += cmt(about);
+            gcode += msg("Create Grid on CNC Waste Board in mm");
+            gcode += msg("Set up Coordinate System");
+            gcode += cmd("G90 G94");
+            gcode += cmd("G17");
+            gcode += cmd("G21");
+            gcode += cmd("G28 G91 Z0");
+            gcode += cmd("G90");
+            gcode += msg("Set up tool change pause");
+            gcode += cmd("T1 M6", "Tool change to Tool 1")
+            gcode += msg("Start Motor and begin cutting");
+            gcode += cmd("S9000 M3", "Motor on at 9000 RPM");
+
+            gcode += go(0, 0, feedRate); // home pos
+            gcode += z(zDepth,plungeRate); // marker down
+
+            var i = 0;
+            gcode +=msg("draw horz X lines");
+            while (1) {
+                gcode += x(limitX,feedRate ); //all way right
+                i = i + majorMark;
+                if (i > limitY) break;
+                gcode += y(i, feedRate); //up to next line
+                gcode += x(0, feedRate); //all way left
+                i = i + majorMark;
+                if (i > limitY) break;
+                gcode += y(i, feedRate); //up to next line
+            }
+
+
+            gcode += z(1, plungeRate); //marker up..
+            gcode += go(0, 0, feedRate); //go home
+            gcode += z(zDepth, plungeRate); //marker down
+
+            var i = 0;
+            gcode += msg("draw vertical Y lines");
+            while (1) {
+                gcode += y(limitY, feedRate); //all way up
+                i = i + majorMark;
+                if (i > limitX, feedRate) break;
+                gcode += x(i, feedRate); //right one
+                gcode += y(0, feedRate); //all way down
+                i = i + majorMark;
+                if (i > limitX) break;
+                gcode += x(i, feedRate); //right one
+            }
+
+            gcode += z(5,plungeRate);
+
+            var i = 0;
+            while (1) {
+                i = i + majorMark;
+                textValue = i;
+                // if (textValue >= 10 & textValue <=20) {
+                gcode += drawNumber(textValue / majorMark, i, 1, 'c', 'b', plungeRate, feedRate, letterWidth, letterHeight);
+                // }
+
+                console.log("draw number: " + textValue + "Length: " + (textValue + "").length + " ivalue:" + i);
+                if (i > (limitX - majorMark)) break;
+            }
+
+
+            var i = 0;
+            while (1) {
+                i = i + majorMark;
+                textValue = i;
+                // if (textValue >= 10 & textValue <=20) {
+                gcode += drawNumber(textValue / majorMark, 1, i, 'l', 'm', plungeRate, feedRate, letterWidth, letterHeight);
+                // }
+
+                // console.log("draw number: " + textValue + "Length: "+( textValue + "").length + " ivalue:" + i);
+                if (i > (limitY - majorMark)) break;
+            }
+
+            gcode += msg("draw rectangle around entire perimiter");
+            gcode += drawRect(0, 0, limitX, limitY);
+
+            gcode += msg("Turn Spindle Off");
+            gcode += cmd("M5", "Spindle Off");
+
+
+            gcode += msg("complete goto center");
+            gcode += z(5, plungeRate)
+            gcode += go(limitX / 2, limitY / 2, feedRate);
+
+            gCode=gcode;
+            //document.getElementById('text').innerHTML = gcode;
+
+
+
         },
         generateGcodeWasteboardPrep: function() {
 
