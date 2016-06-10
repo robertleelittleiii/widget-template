@@ -550,7 +550,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                 i = i + majorMark;
                 textValue = i;
                 // if (textValue >= 10 & textValue <=20) {
-                gcode += drawNumber(textValue / majorMark, i, 1, 'c', 'b', plungeRate, feedRate, letterWidth, letterHeight);
+                gcode += drawNumber(textValue / majorMark, i, 1, 'c', 'b',passDepth, plungeRate, feedRate, letterWidth, letterHeight);
                 // }
 
                 console.log("draw number: " + textValue + "Length: " + (textValue + "").length + " ivalue:" + i);
@@ -563,7 +563,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                 i = i + majorMark;
                 textValue = i;
                 // if (textValue >= 10 & textValue <=20) {
-                gcode += drawNumber(textValue / majorMark, 1, i, 'l', 'm', plungeRate, feedRate, letterWidth, letterHeight);
+                gcode += drawNumber(textValue / majorMark, 1, i, 'l', 'm',passDepth, plungeRate, feedRate, letterWidth, letterHeight);
                 // }
 
                 // console.log("draw number: " + textValue + "Length: "+( textValue + "").length + " ivalue:" + i);
@@ -1018,7 +1018,7 @@ function draw0(x0, y0, zDepth, plungeRate, cutRate) {
 }
 
 
-function drawNumber(number, x0, y0, align, hAlign, plungeRate, cutRate, letterWidth, letterHeight) {
+function drawNumber(number, x0, y0, align, hAlign, zDepth, plungeRate, cutRate, letterWidth, letterHeight) {
     var textNumber = number + "";
     var drawOffset = 0;
     var align = typeof align == "undefined" ? "l" : align
@@ -1055,43 +1055,43 @@ function drawNumber(number, x0, y0, align, hAlign, plungeRate, cutRate, letterWi
 
         switch (Number(textNumber[i])) {
             case 1:
-                gcode += draw1(x0 + drawOffset + alignOffset, y0 + hAlignOffset, plungeRate, cutRate);
+                gcode += draw1(x0 + drawOffset + alignOffset, y0 + hAlignOffset, zDepth, plungeRate, cutRate);
                 drawOffset = drawOffset + letterWidth;
                 break;
             case 2:
-                gcode += draw2(x0 + drawOffset + alignOffset, y0 + hAlignOffset, plungeRate, cutRate);
+                gcode += draw2(x0 + drawOffset + alignOffset, y0 + hAlignOffset, zDepth, plungeRate, cutRate);
                 drawOffset = drawOffset + letterWidth;
                 break;
             case 3:
-                gcode += draw3(x0 + drawOffset + alignOffset, y0 + hAlignOffset, plungeRate, cutRate);
+                gcode += draw3(x0 + drawOffset + alignOffset, y0 + hAlignOffset, zDepth, plungeRate, cutRate);
                 drawOffset = drawOffset + letterWidth;
                 break;
             case 4:
-                gcode += draw4(x0 + drawOffset + alignOffset, y0 + hAlignOffset, plungeRate, cutRate);
+                gcode += draw4(x0 + drawOffset + alignOffset, y0 + hAlignOffset, zDepth, plungeRate, cutRate);
                 drawOffset = drawOffset + letterWidth;
                 break;
             case 5:
-                gcode += draw5(x0 + drawOffset + alignOffset, y0 + hAlignOffset, plungeRate, cutRate);
+                gcode += draw5(x0 + drawOffset + alignOffset, y0 + hAlignOffset, zDepth, plungeRate, cutRate);
                 drawOffset = drawOffset + letterWidth;
                 break;
             case 6:
-                gcode += draw6(x0 + drawOffset + alignOffset, y0 + hAlignOffset, plungeRate, cutRate);
+                gcode += draw6(x0 + drawOffset + alignOffset, y0 + hAlignOffset, zDepth, plungeRate, cutRate);
                 drawOffset = drawOffset + letterWidth;
                 break;
             case 7:
-                gcode += draw7(x0 + drawOffset + alignOffset, y0 + hAlignOffset, plungeRate, cutRate);
+                gcode += draw7(x0 + drawOffset + alignOffset, y0 + hAlignOffset, zDepth, plungeRate, cutRate);
                 drawOffset = drawOffset + letterWidth;
                 break;
             case 8:
-                gcode += draw8(x0 + drawOffset + alignOffset, y0 + hAlignOffset, plungeRate, cutRate);
+                gcode += draw8(x0 + drawOffset + alignOffset, y0 + hAlignOffset, zDepth, plungeRate, cutRate);
                 drawOffset = drawOffset + letterWidth;
                 break;
             case 9:
-                gcode += draw9(x0 + drawOffset + alignOffset, y0 + hAlignOffset, plungeRate, cutRate);
+                gcode += draw9(x0 + drawOffset + alignOffset, y0 + hAlignOffset, zDepth, plungeRate, cutRate);
                 drawOffset = drawOffset + letterWidth;
                 break;
             case 0:
-                gcode += draw0(x0 + drawOffset + alignOffset, y0 + hAlignOffset, plungeRate, cutRate);
+                gcode += draw0(x0 + drawOffset + alignOffset, y0 + hAlignOffset, zDepth, plungeRate, cutRate);
                 drawOffset = drawOffset + letterWidth;
                 break;
             default:
