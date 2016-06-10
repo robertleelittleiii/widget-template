@@ -572,7 +572,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             }
 
             gcode += msg("draw rectangle around entire perimiter");
-            gcode += drawRect(0, 0, limitX, limitY);
+            gcode += drawRect(0, 0, limitX, limitY, plungeRate, feedRate);
 
             gcode += msg("Turn Spindle Off");
             gcode += cmd("M5", "Spindle Off");
