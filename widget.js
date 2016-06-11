@@ -677,6 +677,9 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
                     gCode += "G1 X0" + " F" + feedRateStr + "\n";
                 }
             }
+            
+            gcode += msg("draw rectangle around entire perimiter");
+            gCode += drawRect(0, 0, widthDistance, heightDistance , passDepth.toFixed(3).replace(",", "."), feedRate, feedRate)
 
             gCode += "(Turn Spindle Off) \n";
             gCode += "M5; Spindle Off \n";
