@@ -662,7 +662,7 @@ cpdefine("inline:com-chilipeppr-widget-cncutilities", ["chilipeppr_ready", /* ot
             }
 
             stepOver = endMillDiameter * stepOver;
-            var widthDistance = x - endMillDiameter;
+            var widthDistance = x - endMillDiameter/2;
             var heightDistance = y - stepOver;
             var feedRateStr = feedRate.toString().replace(",", ".");
             var widthDistanceStr = widthDistance.toString().replace(",", ".");
